@@ -6,6 +6,8 @@ import { ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import { RollTwiceOption } from "./check/index.ts";
 import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success.ts";
+import { MacroPF2e } from "@module/macro.ts";
+import { ExecuteMacroSource } from "@module/execute-macro.ts";
 
 interface RollDataPF2e extends RollOptions {
     rollerId?: string;
@@ -48,6 +50,8 @@ interface BaseRollContext {
     options?: Set<string>;
     /** Any notes which should be shown for the roll. */
     notes?: (RollNotePF2e | RollNoteSource)[];
+    /** Any macros to be run for the roll. */
+    macros?: (MacroPF2e | ExecuteMacroSource)[];
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode | "roll";
     /** If this is an attack, the target of that attack */

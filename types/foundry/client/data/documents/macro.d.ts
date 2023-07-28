@@ -25,6 +25,7 @@ declare global {
         /*  Model Methods                               */
         /* -------------------------------------------- */
 
+        // TODO: Test how scope.actor and scope.token work these days, are they still global variables?
         /**
          * Execute the Macro command.
          * @param [scope={}]    Macro execution scope which is passed to script macros
@@ -32,6 +33,6 @@ declare global {
          * @param [scope.token] A Token which is the protagonist of the executed action
          * @returns A created ChatMessage from chat macros or returned value from script macros
          */
-        execute(scope?: { actor?: Actor<TokenDocument<Scene | null> | null>; token?: Token }): unknown;
+        execute(scope?: { actor?: Actor<TokenDocument<Scene | null> | null>; token?: Token } & Record<string, unknown>): unknown;
     }
 }

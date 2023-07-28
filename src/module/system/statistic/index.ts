@@ -15,6 +15,7 @@ import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
     extractDegreeOfSuccessAdjustments,
+    extractMacros,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
@@ -414,6 +415,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
         const options = this.createRollOptions({ ...args, origin, target: targetActor, extraRollOptions });
         const notes = [...extractNotes(actor.synthetics.rollNotes, domains), ...(args.extraRollNotes ?? [])];
+        const macros = item != null ? extractMacros(item.ruleMacros, domains) : [];
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
@@ -481,6 +483,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             target: rollContext?.target ?? null,
             dc,
             notes,
+            macros,
             options,
             type: this.type,
             rollMode,

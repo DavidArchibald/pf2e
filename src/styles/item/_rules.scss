@@ -183,6 +183,11 @@
             margin-left: 9.5em;
         }
 
+        
+        &[data-key="ExecuteMacro"] {
+            background-color: red;
+        }
+
         &[data-key="FastHealing"] {
             .details, tags {
                 flex: 3;

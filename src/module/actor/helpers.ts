@@ -5,6 +5,7 @@ import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import {
     extractDegreeOfSuccessAdjustments,
+    extractMacros,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
@@ -235,6 +236,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     modifiers.push(...extractModifiers(synthetics, domains));
     modifiers.push(...StrikeAttackTraits.createAttackModifiers({ weapon: item }));
     const notes = extractNotes(synthetics.rollNotes, domains);
+    const macros = extractMacros(item.ruleMacros, domains);
 
     const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
     const additionalEffects = item.attackEffects.map((tag) => {
@@ -359,6 +361,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                     options: context.options,
                     traits: [attackTrait],
                     notes: rollNotes,
+                    macros,
                     dc: params.dc ?? context.dc,
                     mapIncreases: mapIncreases as ZeroToTwo,
                     rollTwice: extractRollTwice(synthetics.rollTwice, domains, context.options),

@@ -148,7 +148,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         // Pre-clear other rule elements on this item as being compatible with the battle form
         const rules = (itemSource.system?.rules ?? []) as RuleElementSource[];
         for (const rule of rules) {
-            if (["DamageDice", "FlatModifier", "Note"].includes(String(rule.key))) {
+            if (["DamageDice", "ExecuteMacro", "FlatModifier", "Note"].includes(String(rule.key))) {
                 const predicate = (rule.predicate ??= []);
                 if (Array.isArray(predicate)) predicate.push("battle-form");
             }

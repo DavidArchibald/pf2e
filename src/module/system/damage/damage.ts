@@ -6,6 +6,7 @@ import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
 import { DamageRollContext, DamageTemplate } from "./types.ts";
 import { ActorPF2e } from "@actor";
+import { ExecuteMacroPF2e } from "@module/execute-macro.ts";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -198,6 +199,7 @@ export class DamagePF2e {
             options: Array.from(context.options).sort(),
             mapIncreases: context.mapIncreases,
             notes: context.notes ?? [],
+            macros: context.macros ?? [],
             secret: context.secret ?? false,
             rollMode,
             traits: context.traits ?? [],
@@ -244,6 +246,11 @@ export class DamagePF2e {
         if (context.createMessage) {
             messageData.rolls.push(...splashRolls);
             await ChatMessagePF2e.create(messageData, { rollMode });
+        }
+
+        const macros = context.macros?.map((m) => (m instanceof ExecuteMacroPF2e ? m : new ExecuteMacroPF2e(m))) ?? [];
+        for (const macro of macros) {
+            await macro.execute();
         }
 
         Hooks.callAll(`pf2e.damageRoll`, roll);

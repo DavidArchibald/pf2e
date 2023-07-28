@@ -66,11 +66,14 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             const hasForbiddenREs = source.system.rules.some(
                 (r) =>
                     typeof r.key === "string" &&
-                    (r.key === "ChoiceSet" ||
-                        (r.key === "GrantItem" && !("inMemoryOnly" in r && r.inMemoryOnly === true)))
+                    (
+                        r.key === "ChoiceSet" ||
+                        r.key === "ExecuteMacro" ||
+                        (r.key === "GrantItem" && !("inMemoryOnly" in r && r.inMemoryOnly === true))
+                    )
             );
             if (hasForbiddenREs) {
-                this.failValidation("an ephemeral effect may not include a choice set or grant");
+                this.failValidation("an ephemeral effect may not include a choice set, macro execution, or item grant");
             }
 
             if (this.adjustName) {

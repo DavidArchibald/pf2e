@@ -33,6 +33,7 @@ import { CheckModifiersDialog } from "./dialog.ts";
 import { CheckRoll, CheckRollDataPF2e } from "./roll.ts";
 import { StrikeAttackRoll } from "./strike/attack-roll.ts";
 import { CheckRollContext } from "./types.ts";
+import { ExecuteMacroPF2e } from "@module/execute-macro.ts";
 
 interface RerollOptions {
     heroPoint?: boolean;
@@ -265,6 +266,11 @@ class CheckPF2e {
 
             return roll.toMessage({ speaker, flavor, flags }, { rollMode, create }) as MessagePromise;
         })();
+
+        const macros = context.macros?.map((m) => (m instanceof ExecuteMacroPF2e ? m : new ExecuteMacroPF2e(m))) ?? [];
+        for (const macro of macros) {
+            await macro.execute();
+        }
 
         if (callback) {
             const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);

@@ -15,6 +15,7 @@ import { isObject, pick } from "@util";
 import * as R from "remeda";
 import { BracketedValue, RuleElementPF2e } from "./rule-element/index.ts";
 import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
+import { ExecuteMacroPF2e } from "@module/execute-macro.ts";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
@@ -45,6 +46,11 @@ function extractModifierAdjustments(
 /** Extracts a list of all cloned notes across all given keys in a single list. */
 function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: string[]): RollNotePF2e[] {
     return selectors.flatMap((s) => (rollNotes[s] ?? []).map((n) => n.clone()));
+}
+
+/** Extracts a list of cloned macros that match a selector. */
+function extractMacros(macros: Record<string, (() => ExecuteMacroPF2e)[]>, selectors: string[]): ExecuteMacroPF2e[] {
+    return selectors.flatMap((s) => (macros[s] ?? [])).map((m) => m());
 }
 
 function extractDamageDice(
@@ -185,6 +191,7 @@ export {
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
+    extractMacros,
     extractRollSubstitutions,
     extractRollTwice,
     isBracketedValue,

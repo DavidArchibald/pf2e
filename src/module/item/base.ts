@@ -28,11 +28,15 @@ import { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
 import { ItemSheetPF2e } from "./sheet/base.ts";
 import { ItemInstances } from "./types.ts";
+import { ExecuteMacroPF2e } from "@module/execute-macro.ts";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
     /** Prepared rule elements from this item */
     declare rules: RuleElementPF2e[];
+    
+    /** A record of selectors to macros that may be executed when the selector matches */
+    declare ruleMacros: Record<string, (() => ExecuteMacroPF2e)[]>;
 
     /** The sluggified name of the item **/
     get slug(): string | null {
@@ -219,6 +223,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     protected override _initialize(options?: Record<string, unknown>): void {
         this.rules = [];
+        this.ruleMacros = {};
         super._initialize(options);
     }
 

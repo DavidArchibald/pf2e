@@ -56,6 +56,7 @@ import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
+    extractMacros,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
@@ -1299,6 +1300,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Extract weapon roll notes
         const attackRollNotes = extractNotes(synthetics.rollNotes, selectors);
+        const macros = extractMacros(weapon.ruleMacros, selectors);
         const ABP = game.pf2e.variantRules.AutomaticBonusProgression;
 
         if (weapon.group === "bomb" && !ABP.isEnabled(this)) {
@@ -1580,6 +1582,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     domains: selectors,
                     options: context.options,
                     notes: attackRollNotes,
+                    macros,
                     dc,
                     traits: context.traits,
                     rollTwice,

@@ -997,11 +997,12 @@
             }
         },
         "RuleEditor": {
+            "Selector": {
+                "Multiple": "Multiple",
+                "Single": "Single"
+            },
             "FastHealing": {
                 "DeactivatedBy": "Deactivated By"
-            },
-            "FlatModifier": {
-                "HideIfDisabled": "Hide (If Disabled)"
             },
             "General": {
                 "Brackets": "Brackets",
@@ -1016,7 +1017,8 @@
                 "Primitive": "Primitive",
                 "Range": "Range",
                 "Selector": "Selector",
-                "Value": "Value"
+                "Value": "Value",
+                "HideIfDisabled": "Hide (If Disabled)"
             },
             "GrantItem": {
                 "AllowDuplicate": "Allow Duplicates",

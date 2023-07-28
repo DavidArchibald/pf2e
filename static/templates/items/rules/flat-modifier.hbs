@@ -3,7 +3,7 @@
     <div class="spaced-fields details-container-flex-row">
         <input type="text" name="system.rules.{{index}}.label" value="{{rule.label}}" placeholder="{{object.label}}" />
         <label>
-            {{localize "PF2E.RuleEditor.FlatModifier.HideIfDisabled"}}
+            {{localize "PF2E.RuleEditor.General.HideIfDisabled"}}
             <input type="checkbox" name="system.rules.{{index}}.hideIfDisabled" {{checked rule.hideIfDisabled}}>
         </label>
     </div>
@@ -13,7 +13,11 @@
     <label class="short">{{localize "PF2E.RuleEditor.General.Selector"}}</label>
     <div class="attached-input">
         <button type="button" class="attachment" data-action="toggle-selector">
-            {{#if selectorIsArray}}Multiple{{else}}Single{{/if}}
+            {{~#if selectorIsArray~}}
+                {{localize "PF2E.RuleEditor.Selector.Multiple"}}
+            {{~else~}}
+                {{localize "PF2E.RuleEditor.Selector.Single"}}
+            {{/if}}
         </button>
         {{#if selectorIsArray}}
             <input type="text" class="pf2e-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" data-dtype="JSON" />

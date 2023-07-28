@@ -1,0 +1,65 @@
+<div class="form-group">
+    <label class="short">{{localize "PF2E.UUID.Label"}}</label>
+    <div class="details-container-flex-row">
+        <input type="text" name="system.rules.{{index}}.uuid" value="{{rule.uuid}}" />
+        {{#if granted}}
+            <a class="granted content-link" data-uuid="{{granted.uuid}}">
+                <img src="{{granted.img}}"/>
+                {{granted.name}}
+            </a>
+        {{/if}}
+    </div>
+
+</div>
+
+<div class="form-group">
+    <label class="short">{{localize "PF2E.RuleEditor.General.Label"}}</label>
+    <div class="spaced-fields details-container-flex-row">
+        <input type="text" name="system.rules.{{index}}.label" value="{{rule.label}}" placeholder="{{object.label}}" />
+        <label>
+            {{localize "PF2E.RuleEditor.General.HideIfDisabled"}}
+            <input type="checkbox" name="system.rules.{{index}}.hideIfDisabled" {{checked rule.hideIfDisabled}}>
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="short">{{localize "PF2E.RuleEditor.General.Selector"}}</label>
+    <div class="attached-input">
+        <button type="button" class="attachment" data-action="toggle-selector">
+            {{~#if selectorIsArray~}}
+                {{localize "PF2E.RuleEditor.Selector.Multiple"}}
+            {{~else~}}
+                {{localize "PF2E.RuleEditor.Selector.Single"}}
+            {{/if}}
+        </button>
+        {{#if selectorIsArray}}
+            <input type="text" class="pf2e-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" data-dtype="JSON" />
+        {{else}}
+            <input type="text" name="system.rules.{{index}}.selector" value="{{rule.selector}}" />
+        {{/if}}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="short">{{localize "PF2E.RuleEditor.General.Selector"}}</label>
+    <div class="attached-input">
+        <button type="button" class="attachment" data-action="toggle-selector">
+            {{~#if selectorIsArray~}}
+                {{localize "PF2E.RuleEditor.Selector.Multiple"}}
+            {{~else~}}
+                {{localize "PF2E.RuleEditor.Selector.Single"}}
+            {{/if}}
+        </button>
+        {{#if selectorIsArray}}
+            <input type="text" class="pf2e-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" data-dtype="JSON" />
+        {{else}}
+            <input type="text" name="system.rules.{{index}}.selector" value="{{rule.selector}}" />
+        {{/if}}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="short">{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
+    <input type="text" name="system.rules.{{index}}.predicate" value="{{json rule.predicate}}" />
+</div>

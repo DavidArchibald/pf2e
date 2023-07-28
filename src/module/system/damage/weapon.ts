@@ -9,6 +9,7 @@ import { WeaponDamage } from "@item/weapon/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
     extractDamageSynthetics,
+    extractMacros,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
@@ -453,6 +454,7 @@ class WeaponDamagePF2e {
         ]
             .flat()
             .filter((n) => n.predicate.test(options));
+        const macros = extractMacros(weapon.ruleMacros, selectors);
 
         // Accumulate damage-affecting precious materials
         const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.precious?.type)
@@ -529,6 +531,7 @@ class WeaponDamagePF2e {
         return {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
             notes,
+            macros,
             traits: (actionTraits ?? []).map((t) => t.name),
             materials: Array.from(materials),
             modifiers: [...modifiers, ...damageDice],
